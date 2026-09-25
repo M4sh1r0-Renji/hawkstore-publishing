@@ -10,7 +10,11 @@
   "categories": ["Gameplay"],
   "game": { "id": "ravenfield", "versions": ["EA31"] },
   "bepInEx": { "version": "5.4.23" },
-  "plugin": { "guid": "com.example.ravenfield.myplugin" },
+  "plugin": {
+    "guid": "com.example.ravenfield.myplugin",
+    "installDirectory": "MyPlugin",
+    "entryDll": "MyPlugin.dll"
+  },
   "dependencies": [],
   "links": {
     "source": "https://github.com/your-github-name/my-ravenfield-plugin",

@@ -36,9 +36,19 @@ def validate(source: Path) -> dict:
         raise ValueError("manifest version must use semantic versioning")
     if not manifest["owners"]:
         raise ValueError("at least one owner is required")
+    plugin = manifest["plugin"]
+    install_directory = plugin.get("installDirectory", "")
+    entry_dll = plugin.get("entryDll", "")
+    if not install_directory or "/" in install_directory or "\\" in install_directory:
+        raise ValueError("plugin.installDirectory must be a single path component")
+    if not entry_dll.lower().endswith(".dll") or "/" in entry_dll or "\\" in entry_dll:
+        raise ValueError("plugin.entryDll must be a DLL filename")
     plugin_root = source / "BepInEx" / "plugins"
     if not plugin_root.is_dir() or not any(plugin_root.rglob("*.dll")):
         raise ValueError("at least one DLL is required below BepInEx/plugins")
+    expected_dll = plugin_root / install_directory / entry_dll
+    if not expected_dll.is_file():
+        raise ValueError(f"entry DLL is missing: {expected_dll.relative_to(source)}")
     return manifest
 
 

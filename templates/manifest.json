@@ -4,7 +4,12 @@
   "id": "com.example.ravenfield.myplugin",
   "name": "My Ravenfield Plugin",
   "version": "1.0.0",
-  "author": { "name": "Your Name", "github": "your-github-name" },
+  "author": {
+    "name": "Your Name",
+    "github": "your-github-name",
+    "steamId": "76561190000000000",
+    "steamVerification": { "provider": "steam-openid", "status": "pending" }
+  },
   "owners": ["your-github-name"],
   "description": "Describe the plugin in one sentence.",
   "categories": ["Gameplay"],

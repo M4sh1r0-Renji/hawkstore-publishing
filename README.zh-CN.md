@@ -31,12 +31,12 @@ python tools/package_mod.py path/to/MyMod-1.2.0 --out artifacts
 
 ## 计划中的在线发布流程
 
-1. 作者通过最小权限 GitHub App 登录。
-2. 作者在 Hawkstore 中上传 ZIP。
+1. 作者通过 Steam OpenID 登录；服务端从已签名回调中取得 SteamID64，不信任手工填写的身份字段。
+2. 作者连接最小权限 GitHub App，并在 Hawkstore 中上传 ZIP。
 3. 服务端检查压缩包、manifest、DLL 元数据、包所有权、依赖和恶意软件扫描结果。
 4. 服务端创建投稿分支和 Registry Pull Request。
 5. GitHub Actions 重复执行确定性校验。
 6. 新作者第一次发布需要人工审核。
 7. 合并后创建不可变的 Release 资源并更新 Registry 索引。
 
-不得要求作者输入 Personal Access Token，也不得把 PAT 内置在客户端中。
+作者提交时必须使用 `steamVerification.status: pending`。只有发布服务在确认 OpenID 身份与 `author.steamId` 一致后，才能将其提升为 `verified`。不得要求作者输入 Personal Access Token，也不得把 PAT 内置在客户端中。

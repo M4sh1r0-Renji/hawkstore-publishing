@@ -13,6 +13,7 @@ from pathlib import Path, PurePosixPath
 
 ID_RE = re.compile(r"^[a-z0-9]+(?:[._-][a-z0-9]+)+$")
 SEMVER_RE = re.compile(r"^[0-9]+\.[0-9]+\.[0-9]+(?:[-+][0-9A-Za-z.-]+)?$")
+STEAM_ID_RE = re.compile(r"^7656119[0-9]{10}$")
 
 
 def validate(source: Path) -> dict:
@@ -36,6 +37,12 @@ def validate(source: Path) -> dict:
         raise ValueError("manifest version must use semantic versioning")
     if not manifest["owners"]:
         raise ValueError("at least one owner is required")
+    author = manifest.get("author", {})
+    if not STEAM_ID_RE.fullmatch(author.get("steamId", "")):
+        raise ValueError("author.steamId must be a SteamID64")
+    verification = author.get("steamVerification", {})
+    if verification.get("provider") != "steam-openid" or verification.get("status") != "pending":
+        raise ValueError("author submissions must use steam-openid with pending verification")
     plugin = manifest["plugin"]
     install_directory = plugin.get("installDirectory", "")
     entry_dll = plugin.get("entryDll", "")

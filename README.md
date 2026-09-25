@@ -31,12 +31,12 @@ The command validates the basic contract, builds a deterministic ZIP, and writes
 
 ## Planned hosted workflow
 
-1. Author signs in through a least-privilege GitHub App.
-2. Author uploads a ZIP through Hawkstore.
+1. Author signs in with Steam OpenID; the service obtains the SteamID64 from the signed callback instead of trusting a text field.
+2. Author connects a least-privilege GitHub App and uploads a ZIP through Hawkstore.
 3. A service validates the archive, manifest, DLL metadata, ownership, dependencies, and malware scan result.
 4. The service creates a submission branch and registry pull request.
 5. GitHub Actions repeats deterministic validation.
 6. A first-time publisher receives manual review.
 7. Merge creates an immutable Release asset and updates the registry index.
 
-Personal access tokens must not be requested from authors or embedded in the client.
+Author submissions must use `steamVerification.status: pending`. Only the publishing service may promote it to `verified` after checking that the OpenID identity matches `author.steamId`. Personal access tokens must not be requested from authors or embedded in the client.

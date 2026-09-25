@@ -1,0 +1,19 @@
+{
+  "$schema": "https://raw.githubusercontent.com/M4sh1r0-Renji/hawkstore-registry/main/schemas/manifest.schema.json",
+  "schemaVersion": 1,
+  "id": "com.example.ravenfield.myplugin",
+  "name": "My Ravenfield Plugin",
+  "version": "1.0.0",
+  "author": { "name": "Your Name", "github": "your-github-name" },
+  "owners": ["your-github-name"],
+  "description": "Describe the plugin in one sentence.",
+  "categories": ["Gameplay"],
+  "game": { "id": "ravenfield", "versions": ["EA31"] },
+  "bepInEx": { "version": "5.4.23" },
+  "plugin": { "guid": "com.example.ravenfield.myplugin" },
+  "dependencies": [],
+  "links": {
+    "source": "https://github.com/your-github-name/my-ravenfield-plugin",
+    "issues": "https://github.com/your-github-name/my-ravenfield-plugin/issues"
+  }
+}
